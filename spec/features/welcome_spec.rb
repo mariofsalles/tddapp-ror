@@ -8,7 +8,8 @@ RSpec.feature "Welcome", type: :feature do
   end 
   
   scenario 'Verify signup link' do
-    
+    visit(root_path)
+    expect(find('ul li')).to have_link('Sign up')
   end
 
 end
