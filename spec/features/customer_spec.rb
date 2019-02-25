@@ -35,4 +35,10 @@ RSpec.feature "Customers", type: :feature do
     expect(Customer.last.name).to eq(customer_name)
     end
 
+    scenario 'Sad path' do
+      visit(new_customer_path)
+      click_on('Create Account')
+      expect(page).to have_content("can't be blank")      
+    end
+
 end
