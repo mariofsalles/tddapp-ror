@@ -78,4 +78,22 @@ RSpec.feature "Customers", type: :feature do
 
   end
 
+  scenario 'Update one customer' do
+    customer = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['Y','N'].sample,
+      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
+    )
+    new_name = Faker::Name.name
+    visit(edit_customer_path(customer.id))
+    fill_in('Name', with: new_name)
+    click_on('Update Customer')
+
+    expect(page).to have_content('Customer updated complete!')
+    expect(page).to have_content(new_name)
+
+  end
+
 end
