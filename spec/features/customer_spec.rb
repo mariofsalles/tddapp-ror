@@ -109,7 +109,6 @@ RSpec.feature "Customers", type: :feature do
     expect(page).to have_content('Show Customer')
   end
 
-
   scenario 'Testing edit-link' do
     customer = Customer.create!(
       name: Faker::Name.name,
@@ -123,5 +122,22 @@ RSpec.feature "Customers", type: :feature do
     find(:xpath, '/html/body/table/tbody/tr[1]/td[3]/a').click
     expect(page).to have_content('Customer edit')
   end
+
+  scenario 'Delete one customer', :js => true do
+    customer = Customer.create!(
+      name: Faker::Name.name,
+      email: Faker::Internet.email,
+      phone: Faker::PhoneNumber.phone_number,
+      smoker: ['Y','N'].sample,
+      avatar: "#{Rails.root}/spec/fixtures/avatar.png"
+    )
+    visit(customers_path)
+    find(:xpath, '/html/body/table/tbody/tr[1]/td[4]/a').click
+    sleep 5
+    page.driver.browser.switch_to.alert.accept
+    expect(page).to have_content('Customer delete with success')
+
+  end
+
 end
 

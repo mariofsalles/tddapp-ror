@@ -43,6 +43,8 @@ group :development, :test do
   gem 'rspec-rails'
   gem 'capybara'
   gem 'faker'
+  gem 'selenium-webdriver'
+  gem 'chromedriver-helper'
 end
 
 group :development do
